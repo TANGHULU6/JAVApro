@@ -1,5 +1,7 @@
 package model;
 
+import controller.GameController;
+import view.ChessGameFrame;
 import view.ChessboardPoint;
 import controller.ClickController;
 
@@ -81,6 +83,8 @@ public abstract class ChessComponent extends JComponent {
         setLocation(point2);
         another.setChessboardPoint(chessboardPoint1);
         another.setLocation(point1);
+
+//        ChessGameFrame.
     }
 
     /**

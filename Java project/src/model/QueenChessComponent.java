@@ -76,7 +76,8 @@ public class QueenChessComponent extends ChessComponent {
     @Override
     public boolean canMoveTo(ChessComponent[][] chessComponents, ChessboardPoint destination) {
         ChessboardPoint source = getChessboardPoint();
-        if (source.getX() == destination.getX()) {
+        Boolean K1;Boolean K0;
+        if(Math.abs(destination.getX()-source.getX())==Math.abs(destination.getY()-source.getY())){
             int row = source.getX();
             for (int col = Math.min(source.getY(), destination.getY()) + 1;
                  col < Math.max(source.getY(), destination.getY()); col++) {
@@ -84,7 +85,7 @@ public class QueenChessComponent extends ChessComponent {
                     return false;
                 }
             }
-        } else if (source.getY() == destination.getY()) {
+        }else if (source.getY() == destination.getY()) {
             int col = source.getY();
             for (int row = Math.min(source.getX(), destination.getX()) + 1;
                  row < Math.max(source.getX(), destination.getX()); row++) {
@@ -96,6 +97,27 @@ public class QueenChessComponent extends ChessComponent {
             return false;
         }
         return true;
+
+//        if (source.getX() == destination.getX()) {
+////            int row = source.getX();
+//            for (int col = Math.min(source.getY(), destination.getY()) + 1;
+//                 col < Math.max(source.getY(), destination.getY()); col++) {
+//                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+//                    return false;
+//                }
+//            }
+//        } else if (source.getY() == destination.getY()) {
+//            int col = source.getY();
+//            for (int row = Math.min(source.getX(), destination.getX()) + 1;
+//                 row < Math.max(source.getX(), destination.getX()); row++) {
+//                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+//                    return false;
+//                }
+//            }
+//        } else { // Not on the same row or the same column.
+//            return false;
+//        }
+//        return true;
     }
 
     /**

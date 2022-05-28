@@ -14,6 +14,11 @@ public class ChessGameFrame extends JFrame {
     private final int HEIGTH;
     public final int CHESSBOARD_SIZE;
     private GameController gameController;
+    private static JLabel statusLabel;
+
+    public static JLabel getStatusLabel() {
+        return statusLabel;
+    }
 
     public ChessGameFrame(int width, int height) {
         setTitle("2022 JAVA Project"); //设置标题
@@ -26,9 +31,9 @@ public class ChessGameFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //设置程序关闭按键，如果点击右上方的叉就游戏全部关闭了
         setLayout(null);
 
-
-        addChessboard();
         addLabel();
+        addChessboard();
+
         addHelloButton();
         addLoadButton();
         addReloadButton();
@@ -45,6 +50,8 @@ public class ChessGameFrame extends JFrame {
         add(chessboard);
     }
 
+
+
     /**
      * 在游戏面板中添加标签
      */
@@ -53,12 +60,10 @@ public class ChessGameFrame extends JFrame {
         statusLabel.setLocation(HEIGTH, HEIGTH / 10);
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        ChessGameFrame.statusLabel=statusLabel;
         add(statusLabel);
-        statusLabel.s
     }
-    private void setLabel(){
-        statusLabel.s
-    }
+
 
     /**
      * 在游戏面板中增加一个按钮，如果按下的话就会显示Hello, world!

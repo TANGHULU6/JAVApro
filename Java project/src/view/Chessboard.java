@@ -26,7 +26,7 @@ public class Chessboard extends JComponent {
     private static final int CHESSBOARD_SIZE = 8;
 
     private final ChessComponent[][] chessComponents = new ChessComponent[CHESSBOARD_SIZE][CHESSBOARD_SIZE];
-    private ChessColor currentColor = ChessColor.BLACK;
+    private ChessColor currentColor = ChessColor.WHITE;
     //all chessComponents in this chessboard are shared only one model controller
     private final ClickController clickController = new ClickController(this);
     private final int CHESS_SIZE;
@@ -90,6 +90,8 @@ public class Chessboard extends JComponent {
             remove(chessComponents[row][col]);
         }
         add(chessComponents[row][col] = chessComponent);
+//        swapColor();
+        ChessGameFrame.getStatusLabel().setText(currentColor.toString());
     }
 
     public void swapChessComponents(ChessComponent chess1, ChessComponent chess2) {
@@ -103,7 +105,9 @@ public class Chessboard extends JComponent {
         chessComponents[row1][col1] = chess1;
         int row2 = chess2.getChessboardPoint().getX(), col2 = chess2.getChessboardPoint().getY();
         chessComponents[row2][col2] = chess2;
-
+//        ChessGameFrame.getStatusLabel().setText(currentColor.toString());
+//        swapColor();
+        ChessGameFrame.getStatusLabel().setText(currentColor.toString());
         chess1.repaint();
         chess2.repaint();
     }
@@ -118,6 +122,7 @@ public class Chessboard extends JComponent {
 
     public void swapColor() {
         currentColor = currentColor == ChessColor.BLACK ? ChessColor.WHITE : ChessColor.BLACK;
+        ChessGameFrame.getStatusLabel().setText(currentColor.toString());
     }
 
     private void initRookOnBoard(int row, int col, ChessColor color) {
@@ -165,6 +170,67 @@ public class Chessboard extends JComponent {
     }
 
     public void loadGame(List<String> chessData) {
-        chessData.forEach(System.out::println);
+//        chessData.forEach(System.out::println);
+//        this.chessboard = chessboard;
+        switch (chessData.get(8)) {
+            case "w":
+                this.currentColor = ChessColor.WHITE;
+                break;
+            case "b":
+                this.currentColor = ChessColor.BLACK;
+                break;
+        }
+        StringBuilder Boss = new StringBuilder();
+        for (String line : chessData) {
+            Boss.append(line);
+        }
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                switch (Boss.substring(i * 8 + j, i * 8 + j + 1)) {
+                    case "R":
+                        initRookOnBoard(i,j,ChessColor.BLACK);
+                        break;
+                    case "K":
+                        initKingOnBoard(i,j,ChessColor.BLACK);
+                        break;
+                    case "N":
+                        initKnightOnBoard(i,j,ChessColor.BLACK);
+                        break;
+                    case "B":
+                        initBishopOnBoard(i,j,ChessColor.BLACK);
+                        break;
+                    case "Q":
+                       initQueenOnBoard(i,j,ChessColor.BLACK);
+                        break;
+                    case "P":
+                        initPawnOnBoard(i,j,ChessColor.BLACK);
+                        break;
+                    case "r":
+                        initRookOnBoard(i,j,ChessColor.WHITE);
+                        break;
+                    case "k":
+                        initKingOnBoard(i,j,ChessColor.WHITE);
+                        break;
+                    case "n":
+                        initKnightOnBoard(i,j,ChessColor.WHITE);
+                        break;
+                    case "b":
+                        initBishopOnBoard(i,j,ChessColor.WHITE);
+                        break;
+                    case "q":
+                        initQueenOnBoard(i,j,ChessColor.WHITE);
+                        break;
+                    case "p":
+                       initPawnOnBoard(i,j,ChessColor.WHITE);
+                        break;
+                    case "_":
+                        break;
+                }
+                initiateEmptyChessboard();
+            }
+        }
     }
+
+
 }

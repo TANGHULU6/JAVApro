@@ -1,7 +1,9 @@
 package controller;
 
+import view.ChessGameFrame;
 import view.Chessboard;
 
+import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,6 +14,10 @@ public class GameController {
 
     public GameController(Chessboard chessboard) {
         this.chessboard = chessboard;
+    }
+
+    public Chessboard getChessboard() {
+        return chessboard;
     }
 
     public List<String> loadGameFromFile(String path) {
@@ -25,4 +31,7 @@ public class GameController {
         return null;
     }
 
+//    public Label getstatusLabel(){
+//        return ChessGameFrame.statusLabel;
+//    }
 }
