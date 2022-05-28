@@ -169,7 +169,7 @@ public class Chessboard extends JComponent {
     }
 
     public void loadGame(List<String> chessData) {
-        chessData.forEach(System.out::println);
+//        chessData.forEach(System.out::println);
 //        this.chessboard = chessboard;
         switch (chessData.get(8)) {
             case "w":
