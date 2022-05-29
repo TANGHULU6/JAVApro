@@ -27,6 +27,10 @@ public class GameController {
 
     public List<String> loadGameFromFile(String path) {
         try {
+            if(!path.endsWith(".txt")){
+                JOptionPane.showMessageDialog(null, "文件格式错误(例如规定是 txt，导入的时候是 json)", "Error!", JOptionPane.ERROR_MESSAGE);
+                Chessboard.Error=true;return null;
+            }
             List<String> chessData = Files.readAllLines(Path.of(path));
             chessboard.loadGame(chessData);
             return chessData;
@@ -86,10 +90,11 @@ public class GameController {
                         }
                         if(j==7){
                             writer.write("\n");
+                            writer.flush();
                         }
                     }
                 }
-                writer.write(chessboard.getCurrentColor().toString().substring(0,1).toLowerCase(Locale.ROOT)+"/n");
+                writer.write(chessboard.getCurrentColor().toString().substring(0,1).toLowerCase(Locale.ROOT)+"\n");
                 writer.close();
             }
             else {

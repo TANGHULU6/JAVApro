@@ -30,7 +30,7 @@ public class Chessboard extends JComponent {
     //all chessComponents in this chessboard are shared only one model controller
     private final ClickController clickController = new ClickController(this);
     private final int CHESS_SIZE;
-
+    public static boolean Error = false;
 
     public Chessboard(int width, int height) {
         setLayout(null); // Use absolute layout.
@@ -50,7 +50,7 @@ public class Chessboard extends JComponent {
         initBishopOnBoard(CHESSBOARD_SIZE - 1, 2, ChessColor.WHITE);
         initBishopOnBoard(CHESSBOARD_SIZE - 1, CHESSBOARD_SIZE - 3, ChessColor.WHITE);
         initKingOnBoard(0, 4, ChessColor.BLACK);
-        initKingOnBoard(CHESSBOARD_SIZE - 1,4, ChessColor.WHITE);
+        initKingOnBoard(CHESSBOARD_SIZE - 1, 4, ChessColor.WHITE);
         initKnightOnBoard(0, 1, ChessColor.BLACK);
         initKnightOnBoard(0, CHESSBOARD_SIZE - 2, ChessColor.BLACK);
         initKnightOnBoard(CHESSBOARD_SIZE - 1, 1, ChessColor.WHITE);
@@ -72,7 +72,7 @@ public class Chessboard extends JComponent {
         initPawnOnBoard(6, 6, ChessColor.WHITE);
         initPawnOnBoard(6, 7, ChessColor.WHITE);
         initQueenOnBoard(0, 3, ChessColor.BLACK);
-        initQueenOnBoard(CHESSBOARD_SIZE - 1,3, ChessColor.WHITE);
+        initQueenOnBoard(CHESSBOARD_SIZE - 1, 3, ChessColor.WHITE);
     }
 
     public ChessComponent[][] getChessComponents() {
@@ -107,7 +107,7 @@ public class Chessboard extends JComponent {
         chessComponents[row2][col2] = chess2;
 //        ChessGameFrame.getStatusLabel().setText(currentColor.toString());
 //        swapColor();
-        ChessGameFrame.getStatusLabel().setText(currentColor.toString());
+
         chess1.repaint();
         chess2.repaint();
     }
@@ -124,7 +124,7 @@ public class Chessboard extends JComponent {
         currentColor = currentColor == ChessColor.BLACK ? ChessColor.WHITE : ChessColor.BLACK;
         ChessGameFrame.getStatusLabel().setText(currentColor.toString());
         ChessGameFrame.counti++;
-        ChessGameFrame.getCountLabel().setText(""+ChessGameFrame.counti);
+        ChessGameFrame.getCountLabel().setText("" + ChessGameFrame.counti);
     }
 
     private void initRookOnBoard(int row, int col, ChessColor color) {
@@ -132,32 +132,36 @@ public class Chessboard extends JComponent {
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
+
     private void initBishopOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new BishopChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
+
     private void initKingOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new KingChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
+
     private void initKnightOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new KnightChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
+
     private void initPawnOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new PawnChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
+
     private void initQueenOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new QueenChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
-
 
 
     @Override
@@ -172,9 +176,16 @@ public class Chessboard extends JComponent {
     }
 
     public void loadGame(List<String> chessData) {
+        Error=false;
         chessData.forEach(System.out::println);
         initiateEmptyChessboard();
 //        this.chessboard = chessboard;
+        if (chessData.size() != 9) {
+            JOptionPane.showMessageDialog(null, "缺少下一步行棋方", "Error!", JOptionPane.ERROR_MESSAGE);
+            //chessData.clear();
+            Error = true;
+            return;
+        }
         switch (chessData.get(8)) {
             case "w":
                 this.currentColor = ChessColor.WHITE;
@@ -183,57 +194,70 @@ public class Chessboard extends JComponent {
                 this.currentColor = ChessColor.BLACK;
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + chessData.get(8));
+                JOptionPane.showMessageDialog(null, "缺少下一步行棋方,Unexpected value: " + chessData.get(8), "Error!", JOptionPane.ERROR_MESSAGE);
+                //chessData.clear();
+                Error = true;
+                return;
         }
         StringBuilder Boss = new StringBuilder();
         for (String line : chessData) {
             Boss.append(line);
         }
-
+        if (Boss.length() != 65) {
+            JOptionPane.showMessageDialog(null, "棋盘并非 8*8,字符串长度:" + Boss.length(), "Error!", JOptionPane.ERROR_MESSAGE);
+            Error = true;
+            return;
+        }
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 switch (Boss.substring(i * 8 + j, i * 8 + j + 1)) {
                     case "R":
-                        initRookOnBoard(i,j,ChessColor.BLACK);
+                        initRookOnBoard(i, j, ChessColor.BLACK);
                         break;
                     case "K":
-                        initKingOnBoard(i,j,ChessColor.BLACK);
+                        initKingOnBoard(i, j, ChessColor.BLACK);
                         break;
                     case "N":
-                        initKnightOnBoard(i,j,ChessColor.BLACK);
+                        initKnightOnBoard(i, j, ChessColor.BLACK);
                         break;
                     case "B":
-                        initBishopOnBoard(i,j,ChessColor.BLACK);
+                        initBishopOnBoard(i, j, ChessColor.BLACK);
                         break;
                     case "Q":
-                       initQueenOnBoard(i,j,ChessColor.BLACK);
+                        initQueenOnBoard(i, j, ChessColor.BLACK);
                         break;
                     case "P":
-                        initPawnOnBoard(i,j,ChessColor.BLACK);
+                        initPawnOnBoard(i, j, ChessColor.BLACK);
                         break;
                     case "r":
-                        initRookOnBoard(i,j,ChessColor.WHITE);
+                        initRookOnBoard(i, j, ChessColor.WHITE);
                         break;
                     case "k":
-                        initKingOnBoard(i,j,ChessColor.WHITE);
+                        initKingOnBoard(i, j, ChessColor.WHITE);
                         break;
                     case "n":
-                        initKnightOnBoard(i,j,ChessColor.WHITE);
+                        initKnightOnBoard(i, j, ChessColor.WHITE);
                         break;
                     case "b":
-                        initBishopOnBoard(i,j,ChessColor.WHITE);
+                        initBishopOnBoard(i, j, ChessColor.WHITE);
                         break;
                     case "q":
-                        initQueenOnBoard(i,j,ChessColor.WHITE);
+                        initQueenOnBoard(i, j, ChessColor.WHITE);
                         break;
                     case "p":
-                       initPawnOnBoard(i,j,ChessColor.WHITE);
+                        initPawnOnBoard(i, j, ChessColor.WHITE);
                         break;
                     case "_":
                         break;
+                    default:
+                        JOptionPane.showMessageDialog(null, "棋子并非六种之一，棋子并非黑白棋子", "Error!", JOptionPane.ERROR_MESSAGE);
+                        Error = true;
+                        return;
                 }
             }
         }
+        ChessGameFrame.getStatusLabel().setText(currentColor.toString());
+        ChessGameFrame.getStatusLabel().repaint();
     }
 
 

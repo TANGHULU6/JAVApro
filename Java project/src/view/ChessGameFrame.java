@@ -16,7 +16,7 @@ public class ChessGameFrame extends JFrame {
     private GameController gameController;
     private static JLabel statusLabel;
     private static JLabel countLabel;
-    public static int counti=0;
+    public static int counti = 0;
 
     public static JLabel getCountLabel() {
         return countLabel;
@@ -58,7 +58,6 @@ public class ChessGameFrame extends JFrame {
     }
 
 
-
     /**
      * 在游戏面板中添加标签
      */
@@ -67,15 +66,16 @@ public class ChessGameFrame extends JFrame {
         statusLabel.setLocation(HEIGTH, HEIGTH / 10);
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
-        ChessGameFrame.statusLabel=statusLabel;
+        ChessGameFrame.statusLabel = statusLabel;
         add(statusLabel);
     }
+
     private void addcountLabel() {
         JLabel countLabel = new JLabel("0");
         countLabel.setLocation(HEIGTH, HEIGTH / 5);
         countLabel.setSize(200, 60);
         countLabel.setFont(new Font("Rockwell", Font.BOLD, 10));
-        ChessGameFrame.countLabel=countLabel;
+        ChessGameFrame.countLabel = countLabel;
         add(countLabel);
     }
 
@@ -104,10 +104,28 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             System.out.println("Click load");
-            String path = JOptionPane.showInputDialog(this,"Input Path here");
+            String path = JOptionPane.showInputDialog(this, "Input Path here");
             gameController.loadGameFromFile(path);
-            this.setVisible(false);
-            this.setVisible(true);
+//            this.setVisible(false);
+//            addChessboard();
+//            statusLabel.repaint();
+            if (Chessboard.Error == false) {
+                counti = 0;
+                countLabel.setText(""+counti);
+                this.repaint();
+            } else {
+                ChessGameFrame mainFrame = new ChessGameFrame(1000, 760);
+                this.setVisible(false);
+                counti = 0;
+                mainFrame.setVisible(true);
+                countLabel.setText(""+counti);
+                statusLabel.setText("WHITE");
+
+                addChessboard();
+                this.repaint();
+            }
+//            this.setVisible(true);
+//            repaint();
         });
     }
 
@@ -122,10 +140,11 @@ public class ChessGameFrame extends JFrame {
             System.out.println("Click Reload");
             ChessGameFrame mainFrame = new ChessGameFrame(1000, 760);
             this.setVisible(false);
-            counti=0;
+            counti = 0;
             mainFrame.setVisible(true);
         });
     }
+
     private void addSaveButton() {
         JButton button = new JButton("Save");
         button.setLocation(HEIGTH, HEIGTH / 10 + 480);
@@ -136,10 +155,10 @@ public class ChessGameFrame extends JFrame {
             System.out.println("Click Save");
 //            String path = JOptionPane.showInputDialog(this,"Input Path here");
 //            gameController.loadGameFromFile(path);
-            JOptionPane.showMessageDialog(null,"clicked Save Btn"," ",JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "clicked Save Btn", " ", JOptionPane.PLAIN_MESSAGE);
             String filePath = JOptionPane.showInputDialog(this, "input the name here");
             gameController.writeDataToFile(filePath);
-            JOptionPane.showMessageDialog(null, "Save successfully!","Remind",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Save successfully!", "Remind", JOptionPane.INFORMATION_MESSAGE);
         });
 
     }
