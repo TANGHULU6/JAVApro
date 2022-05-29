@@ -1,5 +1,6 @@
 package model;
 
+import view.ChessGameFrame;
 import view.ChessboardPoint;
 import controller.ClickController;
 
@@ -19,6 +20,7 @@ public class PawnChessComponent extends ChessComponent {
      */
     private static Image Pawn_WHITE;
     private static Image Pawn_BLACK;
+
 
     /**
      * 车棋子对象自身的图片，是上面两种中的一种
@@ -48,7 +50,7 @@ public class PawnChessComponent extends ChessComponent {
      */
 
     private void initiatePawnImage(ChessColor color) {
-        try {
+        try {this.setStep(0);
             loadResource();
             if (color == ChessColor.WHITE) {
                 PawnImage = Pawn_WHITE;
@@ -65,6 +67,8 @@ public class PawnChessComponent extends ChessComponent {
         initiatePawnImage(color);
     }
 
+
+
     /**
      * 车棋子的移动规则
      *
@@ -76,26 +80,107 @@ public class PawnChessComponent extends ChessComponent {
     @Override
     public boolean canMoveTo(ChessComponent[][] chessComponents, ChessboardPoint destination) {
         ChessboardPoint source = getChessboardPoint();
-        if (source.getX() == destination.getX()) {
-            int row = source.getX();
-            for (int col = Math.min(source.getY(), destination.getY()) + 1;
-                 col < Math.max(source.getY(), destination.getY()); col++) {
-                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
-                    return false;
+        int row = destination.getX();
+        int col = destination.getY();
+        int a = source.getX();
+        int b = source.getY();
+        if (chessComponents[a][b].getStep()==0) {
+            if (chessComponents[source.getX()][source.getY()].chessColor == ChessColor.BLACK) {
+                if (row == a + 2 && col == b) {
+                    if (!(chessComponents[row - 1][col] instanceof EmptySlotComponent)) {
+                    } else {
+                        if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+                        } else {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                    }
+                }
+                if (row == a + 1 && col == b) {
+                    if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+                    } else {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}}
+                if (row == a + 1 && col == b+1) {
+                        if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+                            if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
+                                {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                        } else return false;
+                    }
+                if (row == a + 1 && col == b-1) {
+                        if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+                            if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
+                                {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                        } else return false;
+                    }
+
+            } else {
+            if (row == a - 2 && col == b) {
+                if (!(chessComponents[row + 1][col] instanceof EmptySlotComponent)) {
+                } else {
+                    if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+
+                    } else {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
                 }
             }
-        } else if (source.getY() == destination.getY()) {
-            int col = source.getY();
-            for (int row = Math.min(source.getX(), destination.getX()) + 1;
-                 row < Math.max(source.getX(), destination.getX()); row++) {
+            if (row == a - 1 && col == b) {
                 if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
-                    return false;
-                }
+
+                } else {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+
             }
-        } else { // Not on the same row or the same column.
-            return false;
+            if (row == a - 1 && col == b + 1) {
+                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+                    if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
+                        {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                } else return false;
+            }
+            if (row == a - 1 && col == b - 1) {
+                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+                    if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
+                        {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                } else return false;
+            }
         }
-        return true;
+        } else {
+            if (chessComponents[source.getX()][source.getY()].chessColor == ChessColor.BLACK) {
+                if (row == a + 1 && col == b) {
+                    if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+//                        if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
+//                            {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                    } else {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+
+                }
+                if (row == a + 1 && col == b+1) {
+                    if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+                        if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
+                            {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                    } else return false;
+                }
+                if (row == a + 1 && col == b-1) {
+                    if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+                        if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
+                            {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                    } else return false;
+                }
+            } else {
+                if (row == a - 1 && col == b) {
+                    if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+//                        if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
+//                            {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                    } else {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+
+                }
+                if (row == a - 1 && col == b+1) {
+                    if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+                        if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
+                            {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                    } else return false;
+                }
+                if (row == a - 1 && col == b-1) {
+                    if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+                        if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
+                            {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                    } else return false;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -107,11 +192,11 @@ public class PawnChessComponent extends ChessComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 //        g.drawImage(PawnImage, 0, 0, getWidth() - 13, getHeight() - 20, this);
-        g.drawImage(PawnImage, 0, 0, getWidth() , getHeight(), this);
+        g.drawImage(PawnImage, 0, 0, getWidth(), getHeight(), this);
         g.setColor(Color.BLACK);
         if (isSelected()) { // Highlights the model if selected.
             g.setColor(Color.RED);
-            g.drawOval(0, 0, getWidth() , getHeight());
+            g.drawOval(0, 0, getWidth(), getHeight());
         }
     }
 }

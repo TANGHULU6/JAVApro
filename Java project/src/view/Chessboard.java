@@ -123,6 +123,8 @@ public class Chessboard extends JComponent {
     public void swapColor() {
         currentColor = currentColor == ChessColor.BLACK ? ChessColor.WHITE : ChessColor.BLACK;
         ChessGameFrame.getStatusLabel().setText(currentColor.toString());
+        ChessGameFrame.counti++;
+        ChessGameFrame.getCountLabel().setText(""+ChessGameFrame.counti);
     }
 
     private void initRookOnBoard(int row, int col, ChessColor color) {

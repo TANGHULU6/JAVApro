@@ -76,48 +76,51 @@ public class QueenChessComponent extends ChessComponent {
     @Override
     public boolean canMoveTo(ChessComponent[][] chessComponents, ChessboardPoint destination) {
         ChessboardPoint source = getChessboardPoint();
-        Boolean K1;Boolean K0;
-        if(Math.abs(destination.getX()-source.getX())==Math.abs(destination.getY()-source.getY())){
+        Boolean K1=true;Boolean K0=true;
+        if (destination.getX()-source.getX()==destination.getY()-source.getY()) {
+            int row1 = Math.min(source.getX(), destination.getX());
+            for (int col1 = Math.min(source.getY(), destination.getY()) + 1;
+                 col1 < Math.max(source.getY(), destination.getY()); col1++) {
+                if (!(chessComponents[row1+col1-(Math.min(source.getY(), destination.getY()))][col1] instanceof EmptySlotComponent)) {
+                    K1= false;
+                }
+            }
+        } else if (destination.getX()-source.getX()==-destination.getY()+source.getY()) {
+            int col1 = Math.min(source.getY(), destination.getY());
+            for (int row1 = Math.min(source.getX(), destination.getX()) + 1;
+                 row1 < Math.max(source.getX(), destination.getX()); row1++) {
+                if (!(chessComponents[row1][col1+row1-(Math.min(source.getX(), destination.getX()))] instanceof EmptySlotComponent)) {
+                    K1= false;
+                }
+            }
+        } else { // Not on the same row or the same column.
+            K1= false;
+        }
+
+        if (source.getX() == destination.getX()) {
             int row = source.getX();
             for (int col = Math.min(source.getY(), destination.getY()) + 1;
                  col < Math.max(source.getY(), destination.getY()); col++) {
                 if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
-                    return false;
+                    K0= false;
                 }
             }
-        }else if (source.getY() == destination.getY()) {
+        } else if (source.getY() == destination.getY()) {
             int col = source.getY();
             for (int row = Math.min(source.getX(), destination.getX()) + 1;
                  row < Math.max(source.getX(), destination.getX()); row++) {
                 if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
-                    return false;
+                    K0= false;
                 }
             }
         } else { // Not on the same row or the same column.
-            return false;
+            K0= false;
         }
-        return true;
-
-//        if (source.getX() == destination.getX()) {
-////            int row = source.getX();
-//            for (int col = Math.min(source.getY(), destination.getY()) + 1;
-//                 col < Math.max(source.getY(), destination.getY()); col++) {
-//                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
-//                    return false;
-//                }
-//            }
-//        } else if (source.getY() == destination.getY()) {
-//            int col = source.getY();
-//            for (int row = Math.min(source.getX(), destination.getX()) + 1;
-//                 row < Math.max(source.getX(), destination.getX()); row++) {
-//                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
-//                    return false;
-//                }
-//            }
-//        } else { // Not on the same row or the same column.
-//            return false;
-//        }
-//        return true;
+        System.out.println(K1.toString());
+        System.out.println(K0.toString());
+       if(K1||K0){
+           return true;
+       }else return false;
     }
 
     /**

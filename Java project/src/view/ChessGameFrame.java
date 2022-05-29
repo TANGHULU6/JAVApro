@@ -15,6 +15,12 @@ public class ChessGameFrame extends JFrame {
     public final int CHESSBOARD_SIZE;
     private GameController gameController;
     private static JLabel statusLabel;
+    private static JLabel countLabel;
+    public static int counti=0;
+
+    public static JLabel getCountLabel() {
+        return countLabel;
+    }
 
     public static JLabel getStatusLabel() {
         return statusLabel;
@@ -33,7 +39,7 @@ public class ChessGameFrame extends JFrame {
 
         addLabel();
         addChessboard();
-
+        addcountLabel();
         addHelloButton();
         addLoadButton();
         addReloadButton();
@@ -62,6 +68,14 @@ public class ChessGameFrame extends JFrame {
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
         ChessGameFrame.statusLabel=statusLabel;
         add(statusLabel);
+    }
+    private void addcountLabel() {
+        JLabel countLabel = new JLabel("0");
+        countLabel.setLocation(HEIGTH, HEIGTH / 5);
+        countLabel.setSize(200, 60);
+        countLabel.setFont(new Font("Rockwell", Font.BOLD, 10));
+        ChessGameFrame.countLabel=countLabel;
+        add(countLabel);
     }
 
 
@@ -105,6 +119,7 @@ public class ChessGameFrame extends JFrame {
             System.out.println("Click Reload");
             ChessGameFrame mainFrame = new ChessGameFrame(1000, 760);
             this.setVisible(false);
+            counti=0;
             mainFrame.setVisible(true);
         });
     }
