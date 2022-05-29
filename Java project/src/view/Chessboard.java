@@ -172,7 +172,8 @@ public class Chessboard extends JComponent {
     }
 
     public void loadGame(List<String> chessData) {
-//        chessData.forEach(System.out::println);
+        chessData.forEach(System.out::println);
+        initiateEmptyChessboard();
 //        this.chessboard = chessboard;
         switch (chessData.get(8)) {
             case "w":
@@ -181,6 +182,8 @@ public class Chessboard extends JComponent {
             case "b":
                 this.currentColor = ChessColor.BLACK;
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + chessData.get(8));
         }
         StringBuilder Boss = new StringBuilder();
         for (String line : chessData) {
@@ -229,7 +232,6 @@ public class Chessboard extends JComponent {
                     case "_":
                         break;
                 }
-                initiateEmptyChessboard();
             }
         }
     }

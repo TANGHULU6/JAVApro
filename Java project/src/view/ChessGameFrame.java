@@ -43,6 +43,7 @@ public class ChessGameFrame extends JFrame {
         addHelloButton();
         addLoadButton();
         addReloadButton();
+        addSaveButton();
     }
 
 
@@ -105,6 +106,8 @@ public class ChessGameFrame extends JFrame {
             System.out.println("Click load");
             String path = JOptionPane.showInputDialog(this,"Input Path here");
             gameController.loadGameFromFile(path);
+            this.setVisible(false);
+            this.setVisible(true);
         });
     }
 
@@ -122,5 +125,22 @@ public class ChessGameFrame extends JFrame {
             counti=0;
             mainFrame.setVisible(true);
         });
+    }
+    private void addSaveButton() {
+        JButton button = new JButton("Save");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 480);
+        button.setSize(200, 60);
+        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(button);
+        button.addActionListener(e -> {
+            System.out.println("Click Save");
+//            String path = JOptionPane.showInputDialog(this,"Input Path here");
+//            gameController.loadGameFromFile(path);
+            JOptionPane.showMessageDialog(null,"clicked Save Btn"," ",JOptionPane.PLAIN_MESSAGE);
+            String filePath = JOptionPane.showInputDialog(this, "input the name here");
+            gameController.writeDataToFile(filePath);
+            JOptionPane.showMessageDialog(null, "Save successfully!","Remind",JOptionPane.INFORMATION_MESSAGE);
+        });
+
     }
 }

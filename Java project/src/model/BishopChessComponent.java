@@ -52,8 +52,10 @@ public class BishopChessComponent extends ChessComponent {
             loadResource();
             if (color == ChessColor.WHITE) {
                 bishopImage = BISHOP_WHITE;
+                this.setName("b");
             } else if (color == ChessColor.BLACK) {
                 bishopImage = BISHOP_BLACK;
+                this.setName("B");
             }
         } catch (IOException e) {
             e.printStackTrace();

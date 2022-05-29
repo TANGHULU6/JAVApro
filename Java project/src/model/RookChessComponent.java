@@ -52,8 +52,10 @@ public class RookChessComponent extends ChessComponent {
             loadResource();
             if (color == ChessColor.WHITE) {
                 rookImage = ROOK_WHITE;
+                this.setName("r");
             } else if (color == ChessColor.BLACK) {
                 rookImage = ROOK_BLACK;
+                this.setName("R");
             }
         } catch (IOException e) {
             e.printStackTrace();

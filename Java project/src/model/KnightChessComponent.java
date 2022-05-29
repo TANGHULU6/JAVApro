@@ -52,8 +52,10 @@ public class KnightChessComponent extends ChessComponent {
             loadResource();
             if (color == ChessColor.WHITE) {
                 KnightImage = Knight_WHITE;
+                this.setName("n");
             } else if (color == ChessColor.BLACK) {
                 KnightImage = Knight_BLACK;
+                this.setName("N");
             }
         } catch (IOException e) {
             e.printStackTrace();

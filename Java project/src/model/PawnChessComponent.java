@@ -50,12 +50,14 @@ public class PawnChessComponent extends ChessComponent {
      */
 
     private void initiatePawnImage(ChessColor color) {
-        try {this.setStep(0);
+        try {
             loadResource();
             if (color == ChessColor.WHITE) {
                 PawnImage = Pawn_WHITE;
+                this.setName("p");
             } else if (color == ChessColor.BLACK) {
                 PawnImage = Pawn_BLACK;
+                this.setName("P");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,28 +86,28 @@ public class PawnChessComponent extends ChessComponent {
         int col = destination.getY();
         int a = source.getX();
         int b = source.getY();
-        if (chessComponents[a][b].getStep()==0) {
+        if (a==6||a==1) {
             if (chessComponents[source.getX()][source.getY()].chessColor == ChessColor.BLACK) {
                 if (row == a + 2 && col == b) {
                     if (!(chessComponents[row - 1][col] instanceof EmptySlotComponent)) {
                     } else {
                         if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
-                        } else {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                        } else {return true;}
                     }
                 }
                 if (row == a + 1 && col == b) {
                     if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
-                    } else {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}}
+                    } else {return true;}}
                 if (row == a + 1 && col == b+1) {
                         if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
                             if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
-                                {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                                {return true;}
                         } else return false;
                     }
                 if (row == a + 1 && col == b-1) {
                         if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
                             if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
-                                {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                                {return true;}
                         } else return false;
                     }
 
@@ -115,25 +117,25 @@ public class PawnChessComponent extends ChessComponent {
                 } else {
                     if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
 
-                    } else {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                    } else {return true;}
                 }
             }
             if (row == a - 1 && col == b) {
                 if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
 
-                } else {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                } else {return true;}
 
             }
             if (row == a - 1 && col == b + 1) {
                 if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
                     if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
-                        {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                        {return true;}
                 } else return false;
             }
             if (row == a - 1 && col == b - 1) {
                 if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
                     if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
-                        {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                        {return true;}
                 } else return false;
             }
         }
@@ -143,19 +145,19 @@ public class PawnChessComponent extends ChessComponent {
                     if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
 //                        if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
 //                            {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
-                    } else {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                    } else {return true;}
 
                 }
                 if (row == a + 1 && col == b+1) {
                     if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
                         if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
-                            {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                            {return true;}
                     } else return false;
                 }
                 if (row == a + 1 && col == b-1) {
                     if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
                         if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
-                            {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                            {return true;}
                     } else return false;
                 }
             } else {
@@ -163,19 +165,19 @@ public class PawnChessComponent extends ChessComponent {
                     if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
 //                        if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
 //                            {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
-                    } else {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                    } else {return true;}
 
                 }
                 if (row == a - 1 && col == b+1) {
                     if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
                         if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
-                            {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                            {return true;}
                     } else return false;
                 }
                 if (row == a - 1 && col == b-1) {
                     if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
                         if (chessComponents[row][col].chessColor != chessComponents[source.getX()][source.getY()].chessColor)
-                            {chessComponents[a][b].setStep(chessComponents[a][b].getStep()+1);return true;}
+                            {return true;}
                     } else return false;
                 }
             }

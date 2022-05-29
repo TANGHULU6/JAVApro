@@ -52,8 +52,10 @@ public class KingChessComponent extends ChessComponent {
             loadResource();
             if (color == ChessColor.WHITE) {
                 KingImage = King_WHITE;
+                this.setName("k");
             } else if (color == ChessColor.BLACK) {
                 KingImage = King_BLACK;
+                this.setName("K");
             }
         } catch (IOException e) {
             e.printStackTrace();

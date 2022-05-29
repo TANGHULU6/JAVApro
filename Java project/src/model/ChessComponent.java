@@ -40,14 +40,16 @@ public abstract class ChessComponent extends JComponent {
     private ChessboardPoint chessboardPoint;
     protected final ChessColor chessColor;
     private boolean selected;
-    private int step;
+    private String Name;
 
-    public int getStep() {
-        return step;
+    @Override
+    public String getName() {
+        return Name;
     }
 
-    public void setStep(int step) {
-        this.step = step;
+    @Override
+    public void setName(String name) {
+        Name = name;
     }
 
     protected ChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor chessColor, ClickController clickController, int size) {

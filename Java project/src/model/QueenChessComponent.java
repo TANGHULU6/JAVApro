@@ -52,8 +52,10 @@ public class QueenChessComponent extends ChessComponent {
             loadResource();
             if (color == ChessColor.WHITE) {
                 QueenImage = Queen_WHITE;
+                this.setName("q");
             } else if (color == ChessColor.BLACK) {
                 QueenImage = Queen_BLACK;
+                this.setName("Q");
             }
         } catch (IOException e) {
             e.printStackTrace();
